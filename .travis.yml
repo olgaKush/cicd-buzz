@@ -1,7 +1,9 @@
 sudo: required
 
-global:
-  - LOWERCASE_REPO_SLUG="${TRAVIS_REPO_SLUG,,}"
+env:
+  global:
+    - LOWERCASE_REPO_SLUG="${TRAVIS_REPO_SLUG,,}"
+
 services:
   - docker
 

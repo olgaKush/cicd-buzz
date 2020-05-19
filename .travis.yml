@@ -9,5 +9,6 @@ script:
   - python -m pytest -v
 
 after_success:
-  - docker build -f Dockerfile -t $TRAVIS_REPO_SLUG:$TRAVIS_BUILD_NUMBER .
-  - if [ "$TRAVIS_BRANCH" == "master" ]; then echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin; docker push $TRAVIS_REPO_SLUG:$TRAVIS_BUILD_NUMBER; fi
+  - echo $TRAVIS_REPO_SLUG
+  - docker build -f Dockerfile -t $TRAVIS_REPO_SLUG:latest .
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin; docker push $TRAVIS_REPO_SLUG:latest; fi

@@ -16,3 +16,4 @@ after_success:
   - echo $LOWERCASE_REPO_SLUG
   - docker build -f Dockerfile -t $LOWERCASE_REPO_SLUG:latest .
   - if [ "$TRAVIS_BRANCH" == "master" ]; then echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin; docker push $LOWERCASE_REPO_SLUG:latest; fi
+  - test "$TRAVIS_BRANCH" = "master" && sh .travis/deploy_heroku.sh

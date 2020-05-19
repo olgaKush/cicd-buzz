@@ -1,5 +1,7 @@
 sudo: required
 
+global:
+  - LOWERCASE_REPO_SLUG="${TRAVIS_REPO_SLUG,,}"
 services:
   - docker
 
@@ -9,6 +11,6 @@ script:
   - python -m pytest -v
 
 after_success:
-  - echo $TRAVIS_REPO_SLUG
-  - docker build -f Dockerfile -t $TRAVIS_REPO_SLUG:latest .
-  - if [ "$TRAVIS_BRANCH" == "master" ]; then echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin; docker push $TRAVIS_REPO_SLUG:latest; fi
+  - echo $LOWERCASE_REPO_SLUG
+  - docker build -f Dockerfile -t $LOWERCASE_REPO_SLUG:latest .
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin; docker push $LOWERCASE_REPO_SLUG:latest; fi
